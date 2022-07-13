@@ -1,0 +1,12 @@
+oauth2_server_user_claims.claims_form:
+  path: '/user/{user}/oauth2-claims'
+  defaults:
+    _title: 'OAuth2 claims'
+    _form: 'Drupal\oauth2_server_user_claims\Form\UserClaimsForm'
+  requirements:
+    _permission: 'view user oauth2 claims'
+    _entity_access: 'user.view'
+  options:
+    parameters:
+      user:
+        type: entity:user

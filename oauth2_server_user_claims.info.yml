@@ -1,0 +1,8 @@
+name: OAuth2 Server user claims
+type: module
+description: Exposes the user claims per server and scope.
+package: OAuth2
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - oauth2_server:oauth2_server

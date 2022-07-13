@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the OAuth2 Server user claims module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function oauth2_server_user_claims_install() {
+  \Drupal::messenger()->addStatus(__FUNCTION__);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function oauth2_server_user_claims_uninstall() {
+  \Drupal::messenger()->addStatus(__FUNCTION__);
+}

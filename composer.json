@@ -1,0 +1,13 @@
+{
+  "name": "euf/oauth2_server_user_claims",
+  "type": "drupal-module",
+  "description": "Drupal 9 module that exposes OAuth2 user claims per server and scope.",
+  "keywords": [
+  ],
+  "homepage": "",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "",
+    "source": ""
+  }
+}

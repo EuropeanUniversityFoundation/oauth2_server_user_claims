@@ -1,0 +1,4 @@
+entity.user.claims_form:
+  route_name: oauth2_server_user_claims.claims_form
+  base_route: entity.user.canonical
+  title: OAuth2 claims
