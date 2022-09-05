@@ -7,6 +7,7 @@ use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\user\UserInterface;
@@ -51,22 +52,33 @@ class UserClaimsForm extends FormBase {
   protected $storage;
 
   /**
+   * The renderer service.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * The constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\oauth2_server\OAuth2StorageInterface $storage
    *   The OAuth2Storage.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer service.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translation service.
    */
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
     OAuth2StorageInterface $storage,
+    RendererInterface $renderer,
     TranslationInterface $string_translation
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->storage = $storage;
+    $this->renderer = $renderer;
     $this->stringTranslation = $string_translation;
   }
 
@@ -77,6 +89,7 @@ class UserClaimsForm extends FormBase {
     return new static(
       $container->get('entity_type.manager'),
       $container->get('oauth2_server.storage'),
+      $container->get('renderer'),
       $container->get('string_translation'),
     );
   }
@@ -199,8 +212,9 @@ class UserClaimsForm extends FormBase {
       foreach ($claims as $key => $value) {
         if (is_array($value)) {
           $value = (!empty($value)) ? $this->arrayToList($value) : $empty;
+          $value = $this->renderer->render($value);
         }
-        $rows[] = [$scope, $key, render($value)];
+        $rows[] = [$scope, $key, $value];
       }
     }
 
@@ -211,7 +225,7 @@ class UserClaimsForm extends FormBase {
       '#empty' => $this->t('Nothing to display'),
     ];
 
-    return render($output);
+    return $this->renderer->render($output);
   }
 
   /**
