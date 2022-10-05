@@ -10,3 +10,11 @@ oauth2_server_user_claims.claims_form:
     parameters:
       user:
         type: entity:user
+
+oauth2_server_user_claims.settings:
+  path: '/admin/config/user-interface/oauth2-server-user-claims'
+  defaults:
+    _title: 'OAuth2 Server User Claims Settings'
+    _form: 'Drupal\oauth2_server_user_claims\Form\SettingsForm'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,6 @@
+/* Styles for the User Claims table. */
+
+table.oauth2-server-user-claims {
+  width: 100%;
+  text-align: justify;
+}

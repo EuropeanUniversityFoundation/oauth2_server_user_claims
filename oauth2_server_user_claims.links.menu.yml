@@ -1,0 +1,6 @@
+oauth2_server_user_claims.settings:
+  title: OAuth2 Server User Claims Settings
+  description: Display settings for the OAuth2 Server User Claims user account page.
+  parent: system.admin_config_ui
+  route_name: oauth2_server_user_claims.settings
+  weight: 10

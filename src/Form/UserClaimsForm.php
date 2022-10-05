@@ -2,8 +2,10 @@
 
 namespace Drupal\oauth2_server_user_claims\Form;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -38,6 +40,13 @@ class UserClaimsForm extends FormBase {
   protected $serverOptions;
 
   /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * The entity manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
@@ -61,6 +70,8 @@ class UserClaimsForm extends FormBase {
   /**
    * The constructor.
    *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\oauth2_server\OAuth2StorageInterface $storage
@@ -71,11 +82,13 @@ class UserClaimsForm extends FormBase {
    *   The string translation service.
    */
   public function __construct(
+    ConfigFactoryInterface $config_factory,
     EntityTypeManagerInterface $entity_type_manager,
     OAuth2StorageInterface $storage,
     RendererInterface $renderer,
     TranslationInterface $string_translation
   ) {
+    $this->configFactory = $config_factory;
     $this->entityTypeManager = $entity_type_manager;
     $this->storage = $storage;
     $this->renderer = $renderer;
@@ -87,6 +100,7 @@ class UserClaimsForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
+      $container->get('config.factory'),
       $container->get('entity_type.manager'),
       $container->get('oauth2_server.storage'),
       $container->get('renderer'),
@@ -138,6 +152,12 @@ class UserClaimsForm extends FormBase {
       '#type' => 'markup',
       '#markup' => '<div class="output"></div>',
     ];
+
+    $settings = $this->configFactory->get('oauth2_server_user_claims.settings');
+
+    if ($settings->get('library')) {
+      $form['#attached']['library'][] = 'oauth2_server_user_claims/table';
+    }
 
     return $form;
   }
@@ -224,6 +244,20 @@ class UserClaimsForm extends FormBase {
       '#rows' => $rows,
       '#empty' => $this->t('Nothing to display'),
     ];
+
+    $settings = $this->configFactory->get('oauth2_server_user_claims.settings');
+
+    if ($settings->get('library')) {
+      $output['table']['#attributes']['class'][] = 'oauth2-server-user-claims';
+    }
+
+    if (!empty($settings->get('classes'))) {
+      $classes = \explode(' ', $settings->get('classes'));
+      foreach ($classes as $class) {
+        $clean = Html::cleanCssIdentifier($class, []);
+        $output['table']['#attributes']['class'][] = $clean;
+      }
+    }
 
     return $this->renderer->render($output);
   }

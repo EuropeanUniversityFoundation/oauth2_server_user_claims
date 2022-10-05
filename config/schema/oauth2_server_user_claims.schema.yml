@@ -1,0 +1,10 @@
+oauth2_server_user_claims.settings:
+  type: config_object
+  label: 'OAuth2 Server User Claims settings'
+  mapping:
+    library:
+      type: boolean
+      label: 'Load module CSS library'
+    classes:
+      type: string
+      label: 'Additional CSS classes'

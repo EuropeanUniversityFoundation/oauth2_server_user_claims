@@ -1,0 +1,5 @@
+table:
+  version: 1.x
+  css:
+    component:
+      css/oauth2_server_user_claims.module.css: {}
