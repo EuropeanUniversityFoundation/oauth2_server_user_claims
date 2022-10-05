@@ -123,7 +123,7 @@ class UserClaimsForm extends FormBase {
     $form['server'] = [
       '#type' => 'select',
       '#title' => $this->t('Select an OAuth2 server'),
-      '#options' => $this->serverOptions,
+      '#options' => $this->serverOptions ?? [],
       '#default_value' => '',
       '#empty_value' => '',
       '#ajax' => [
