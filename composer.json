@@ -1,13 +1,33 @@
 {
-  "name": "euf/oauth2_server_user_claims",
-  "type": "drupal-module",
-  "description": "Drupal 9 module that exposes OAuth2 user claims per server and scope.",
-  "keywords": [
-  ],
-  "homepage": "",
-  "minimum-stability": "dev",
-  "support": {
-    "issues": "",
-    "source": ""
-  }
+    "name": "euf/oauth2_server_user_claims",
+    "type": "drupal-module",
+    "description": "Exposes OAuth2 user claims per server and scope.",
+    "keywords": [
+        "Drupal",
+        "OAuth2",
+        "User management"
+    ],
+    "homepage": "https://github.com/EuropeanUniversityFoundation/oauth2_server_user_claims",
+    "support": {
+        "issues": "https://github.com/EuropeanUniversityFoundation/oauth2_server_user_claims/issues",
+        "source": "https://github.com/EuropeanUniversityFoundation/oauth2_server_user_claims"
+    },
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Tiago Simões",
+            "email": "tiago.simoes@uni-foundation.eu",
+            "role": "Maintainer"
+        }
+    ],
+    "require": {
+        "drupal/oauth2_server": "^2.0@beta"
+    },
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ]
 }
