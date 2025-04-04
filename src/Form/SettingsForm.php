@@ -34,7 +34,7 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Load module CSS library'),
       '#description' => $this->t('Adds basic styles to the user claims table.'),
-      '#default_value' => $settings->get('library') ?? TRUE,
+      '#default_value' => ($settings->get('library')),
       '#return' => TRUE,
     ];
 
